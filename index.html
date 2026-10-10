@@ -10,7 +10,6 @@
 <style>
 :root{--bg:#f2f4f8;--panel:#fff;--ink:#0f1b33;--muted:#66728b;--line:#e2e6ee;--brand:#0f1b33;--brass:#c39a4b;--btn:#0f1b33;--btnink:#fff;--out:#b45309;--outbg:#fef3c7;--in:#0f766e;--inbg:#d5f5ef;--warn:#b42318;--warnbg:#fee4e2;--ok:#116b3a;--okbg:#dcf5e6;--field:#f8f9fc;--ro:#eceff5;--row:#f7f8fc;--ring:#2f6fed;--shadow:0 1px 2px rgba(15,27,51,.05),0 8px 24px -12px rgba(15,27,51,.12)}
 @media (prefers-color-scheme:dark){:root{--bg:#0a111f;--panel:#111a2d;--ink:#e8edf6;--muted:#93a1b9;--line:#223049;--brand:#0b1426;--btn:#d4a44f;--btnink:#1b1406;--out:#fbbf5c;--outbg:#3d2a0b;--in:#5eead4;--inbg:#0d3a37;--warn:#fda4a0;--warnbg:#4a1a18;--ok:#86efac;--okbg:#12361f;--field:#0d1627;--ro:#16213a;--row:#15203a;--ring:#6ea0ff;--shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px -12px rgba(0,0,0,.5)}}
-/* ===== MOBILE-FIRST BASE (phones) ===== */
 *,*::before,*::after{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 "Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden;-webkit-tap-highlight-color:transparent}
@@ -38,7 +37,6 @@ form{display:grid;grid-template-columns:minmax(0,1fr);gap:16px;align-items:start
 .field{display:flex;flex-direction:column;gap:6px;min-width:0}
 label{font-size:13px;font-weight:600}
 label i{color:var(--warn);font-style:normal;margin-left:2px}
-/* 16px+ font on inputs stops iOS Safari zooming on focus; 48px = comfortable touch target */
 input,select{font:inherit;font-size:16px;height:48px;padding:8px 14px;border:1px solid var(--line);border-radius:12px;background:var(--field);color:var(--ink);width:100%;max-width:100%;transition:border-color .15s,box-shadow .15s,background .15s}
 select{cursor:pointer;text-overflow:ellipsis}
 input::placeholder{color:#9aa5ba}
@@ -73,8 +71,6 @@ button:disabled{opacity:.55;cursor:wait}
 .state .plate{font-size:15px}
 .field[hidden],.state[hidden]{display:none}
 .span2{grid-column:auto}
-
-/* Movement register: stacked cards on phones */
 .wrap{margin:0;padding:0;overflow:visible}
 table{width:100%;border-collapse:separate;border-spacing:0}
 thead{display:none}
@@ -90,6 +86,8 @@ td[colspan]{grid-column:1/-1}
 td.act{text-align:left}
 .plate{display:inline-flex;align-items:center;position:relative;padding:4px 9px 4px 22px;background:#fff;color:#111827;border:1.5px solid #1f2a44;border-radius:6px;font:600 16px/1.1 "Barlow Condensed","Arial Narrow",sans-serif;letter-spacing:.09em;white-space:nowrap;overflow:hidden;max-width:100%}
 .plate::before{content:"";position:absolute;left:0;top:0;bottom:0;width:13px;background:#1d4ed8}
+.mdl{display:inline-block;margin-left:6px;font-size:12.5px;font-weight:600;color:var(--muted,#5b6475);vertical-align:middle}
+.mdl.cng{color:#047857}
 .badge{display:inline-block;padding:3px 11px;border-radius:99px;font-size:12px;font-weight:700;white-space:nowrap}
 .b-out{background:var(--outbg);color:var(--out)}.b-in{background:var(--inbg);color:var(--in)}.b-rep{background:var(--warnbg);color:var(--warn);margin-left:4px}
 .empty{text-align:center;color:var(--muted);padding:28px 12px}
@@ -107,8 +105,6 @@ button .spin{border-color:color-mix(in srgb,currentColor 30%,transparent);border
 .note{margin:12px 0 0;font-size:12.5px;color:var(--muted)}
 .note:empty{display:none}
 @media (prefers-reduced-motion:reduce){.topbar::after,.spin{animation-duration:2.4s}*{transition:none!important}}
-
-/* ===== SMALL TABLETS / LARGE PHONES (>=560px) ===== */
 @media (min-width:560px){
 .bar{padding-top:16px;padding-bottom:16px}
 .logo,.mark{height:46px}
@@ -131,10 +127,7 @@ input,select{height:44px;font-size:15px}
 tbody tr{grid-template-columns:repeat(3,1fr)}
 td.who,td[data-label="Car"],td[data-label="Remarks"]{grid-column:auto}
 td.who{grid-column:span 2}
-td[data-label="Remarks"]{grid-column:1/-1}
-}
-
-/* ===== TABLETS LANDSCAPE / SMALL LAPTOPS (>=821px): real table ===== */
+td[data-label="Remarks"]{grid-column:1/-1}}
 @media (min-width:821px){
 .bar{flex-direction:row;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px 32px;padding-left:24px;padding-right:24px}
 .stats{display:flex;background:none;padding:0}
@@ -158,18 +151,41 @@ td[data-label]::before{content:none}
 td.who{font-weight:600;font-size:14px;grid-column:auto}
 td.act{text-align:right;white-space:nowrap}
 th{text-align:left;padding:8px 12px 10px;border-bottom:1px solid var(--line);font-size:12.5px;color:var(--muted);font-weight:600;white-space:nowrap}
-.empty,.loading-cell{padding:40px 12px}
-}
-
-/* ===== DESKTOP (>=900px) ===== */
-@media (min-width:900px){
-form{grid-template-columns:repeat(3,minmax(0,1fr))}
-}
+.empty,.loading-cell{padding:40px 12px}}
+@media (min-width:900px){form{grid-template-columns:repeat(3,minmax(0,1fr))}}
 td input{height:36px;padding:5px 10px;width:100%;border-radius:8px;font-size:14px}
 @media (min-width:821px){td input{width:120px}td input.rem{width:200px}}
+body.locked .stats,body.locked .userbox,body.locked main>section:not(#loginBox){display:none}
+body.setpw .stats,body.setpw main>section:not(#pwBox){display:none}
+body:not(.locked) #loginBox,body:not(.setpw) #pwBox{display:none}
+#loginBox,#pwBox{max-width:420px;margin:16px auto 0}
+#lf,#pf{grid-template-columns:minmax(0,1fr);gap:16px}
+#lf .field,#pf .field{min-height:0}
+#lf .field label,#pf .field label{height:auto;line-height:1.4}
+.pw{position:relative}
+.pw input{padding-right:84px}
+.pw button{position:absolute;right:6px;top:6px;bottom:6px;min-height:0;height:auto;padding:0 12px;font-size:13px;border-radius:8px}
+#lgo,#pgo{width:100%;height:48px;font-size:16px;font-weight:700}
+#loginBox .msg,#pwBox .msg{margin-bottom:16px}
+.userbox{display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:13px;color:#aab6cc;min-width:0}
+.userbox span{min-width:0;overflow-wrap:anywhere}
+.userbox b{color:#fff;font-weight:600}
+.userbox button{background:rgba(255,255,255,.12);color:#fff;min-height:36px;padding:6px 14px;font-size:13px;flex:none}
+@media (min-width:560px){#lgo,#pgo{height:44px;font-size:15px}}
+@media (min-width:821px){.userbox{justify-content:flex-end}}
+.tabs{display:flex;gap:8px;margin-bottom:16px}
+.tabs button{flex:1;height:44px}
+.tabs button[aria-selected=true]{background:var(--btn);color:var(--btnink);border-color:transparent}
+.tabs button[aria-selected=true]:hover:not(:disabled){background:var(--btn);filter:none}
+body.locked .tabs,body.setpw .tabs{display:none}
+body.tab-fuel #tdForm,body.tab-fuel #tdReg{display:none}
+body:not(.tab-fuel) #fuelForm,body:not(.tab-fuel) #fuelReg,body:not(.tab-fuel) #fuelSum{display:none}
+#fgo{width:100%;height:50px;font-size:16px;font-weight:700}
+#fuelSum .head{margin-bottom:12px}
+@media (min-width:560px){.tabs button{flex:none;min-width:170px}#fgo{height:44px;font-size:15px}}
 </style>
 </head>
-<body>
+<body class="locked">
 <div class="topbar" id="topbar" aria-hidden="true"></div>
 <header><div class="bar">
 <div class="brand">
@@ -182,14 +198,37 @@ td input{height:36px;padding:5px 10px;width:100%;border-radius:8px;font-size:14p
 <div class="stat"><b id="sTot">–</b><span>Drives today</span></div>
 <div class="stat rep"><b id="sRep">–</b><span>Repeat mobiles</span></div>
 </div>
+<div class="userbox"><span>Signed in as <b id="uName">–</b></span><button type="button" id="logout">Sign out</button></div>
 </div></header>
 <main>
-<section>
+<div class="tabs" id="tabs" role="tablist" aria-label="Sections">
+<button type="button" class="ghost" role="tab" id="tabTd" aria-selected="true">Test drives</button>
+<button type="button" class="ghost" role="tab" id="tabFuel" aria-selected="false">Fuel filling</button>
+</div>
+<section id="loginBox">
+<div class="head"><h2>Sign in</h2><p class="sub">Use your showroom login to record test drives.</p></div>
+<div class="msg" id="lmsg" role="alert"></div>
+<form id="lf" novalidate>
+<div class="field"><label for="lu">Username <i>*</i></label><input id="lu" autocomplete="username" autocapitalize="none" autocorrect="off" spellcheck="false" maxlength="50"></div>
+<div class="field"><label for="lp">Password <i>*</i></label><div class="pw"><input id="lp" type="password" autocomplete="current-password" maxlength="100"><button type="button" class="ghost" id="lshow" aria-label="Show password">Show</button></div></div>
+<div class="field"><button type="submit" id="lgo">Sign in</button></div>
+</form>
+</section>
+<section id="pwBox">
+<div class="head"><h2>Set a new password</h2><p class="sub">This is your first sign-in. Choose your own password of at least 6 characters. You will use it from now on.</p></div>
+<div class="msg" id="pmsg" role="alert"></div>
+<form id="pf" novalidate>
+<div class="field"><label for="np1">New password <i>*</i></label><div class="pw"><input id="np1" type="password" autocomplete="new-password" maxlength="64"><button type="button" class="ghost" id="pshow" aria-label="Show password">Show</button></div></div>
+<div class="field"><label for="np2">Confirm new password <i>*</i></label><input id="np2" type="password" autocomplete="new-password" maxlength="64"></div>
+<div class="field"><button type="submit" id="pgo">Save password and continue</button></div>
+</form>
+</section>
+<section id="tdForm">
 <div class="head"><h2 id="fTitle">Update Test Drive information</h2><p class="sub" id="fSub">Select the car first. The form shows whether it is going out or coming back.</p></div>
 <form id="f" novalidate>
 <div class="field">
 <label for="car">Car registration <i>*</i></label>
-<select id="car" required><option value="" disabled selected>Select car registration</option><option value="AP40NB1235">AP40NB1235</option><option value="AP40NB1238">AP40NB1238</option></select><span class="hint" id="cHint"></span></div>
+<select id="car" required><option value="" disabled selected>Select car registration</option></select><span class="hint" id="cHint"></span></div>
 <div class="state" id="state" role="status" aria-live="polite"></div>
 <div class="field"><label for="name">Customer name <i>*</i></label><input id="name" required autocomplete="off" maxlength="50" placeholder="e.g. Ravi Kumar"><span class="hint" id="nHint"></span></div>
 <div class="field"><label for="mobile">Mobile <i>*</i></label><input id="mobile" inputmode="numeric" maxlength="10" placeholder="10-digit mobile number" required><span class="hint" id="mHint"></span></div>
@@ -201,11 +240,11 @@ td input{height:36px;padding:5px 10px;width:100%;border-radius:8px;font-size:14p
 <div class="field act-field"><label aria-hidden="true">&nbsp;</label><button type="submit" id="go" disabled>Record car out</button><span class="hint"></span></div>
 </form>
 </section>
-<section>
+<section id="tdReg">
 <div class="tools">
 <div><h2>Movement register</h2><p class="sub">Latest test drives, newest first.</p></div>
 <div class="row">
-<input id="q" placeholder="Search name, car, employee or last 4 digits" aria-label="Search">
+<input id="q" placeholder="Search name, car, model, employee or last 4 digits" aria-label="Search">
 <button class="ghost small" id="refresh" type="button">Refresh</button>
 </div>
 </div>
@@ -216,13 +255,69 @@ td input{height:36px;padding:5px 10px;width:100%;border-radius:8px;font-size:14p
 </table></div>
 <p class="note" id="note" aria-live="polite"></p>
 </section>
+<section id="fuelForm">
+<div class="head"><h2>Record fuel filling</h2><p class="sub">Enter every refuelling with its coupon or bill, so fuel use can be tracked against the odometer.</p></div>
+<div class="msg" id="fmsg" role="status"></div>
+<form id="ff" novalidate>
+<div class="field"><label for="fcar">Vehicle <i>*</i></label><select id="fcar" required><option value="" disabled selected>Select vehicle</option></select><span class="hint" id="fcHint"></span></div>
+<div class="state" id="fstate" role="status" aria-live="polite"></div>
+<div class="field"><label for="fdate">Date of refueling <i>*</i></label><input id="fdate" type="date" required><span class="hint" id="fdHint"></span></div>
+<div class="field"><label for="fpump">Pump <i>*</i></label><input id="fpump" list="fpumps" autocomplete="off" maxlength="60" placeholder="e.g. HP Petrol Pump, Kukatpally"><datalist id="fpumps"></datalist><span class="hint" id="fpHint"></span></div>
+<div class="field"><label for="fdoc">Coupon / Bill <i>*</i></label><select id="fdoc" required><option value="" disabled selected>Select Coupon or Bill</option></select><span class="hint" id="fyHint"></span></div>
+<div class="field"><label for="fno">Coupon / Bill number <i>*</i></label><input id="fno" autocomplete="off" maxlength="30" placeholder="Number printed on it"><span class="hint" id="fnHint"></span></div>
+<div class="field"><label for="fodo">Odometer (km) <i>*</i></label><input id="fodo" type="number" min="0" inputmode="numeric"><span class="hint" id="foHint"></span></div>
+<div class="field"><label for="fl">Litres filled <i>*</i></label><input id="fl" type="number" min="0" step="0.01" inputmode="decimal"><span class="hint" id="flHint"></span></div>
+<div class="field"><label for="famt">Amount (₹)</label><input id="famt" type="number" min="0" step="0.01" inputmode="decimal"><span class="hint"></span></div>
+<div class="field"><label for="ffull">Tank filled to full? <i>*</i></label><select id="ffull"><option value="Yes">Yes, filled to full</option><option value="No">No, part fill</option></select><span class="hint">Km/L is worked out between two full-tank fills.</span></div>
+<div class="field"><label for="femp">Refilled by employee <i>*</i></label><input id="femp" list="emps" autocomplete="off" maxlength="50" placeholder="e.g. Suresh Reddy"><span class="hint" id="feHint"></span></div>
+<div class="field"><label for="frem">Remarks</label><input id="frem" maxlength="100" autocomplete="off"><span class="hint"></span></div>
+<div class="field act-field"><label aria-hidden="true">&nbsp;</label><button type="submit" id="fgo">Record fuel filling</button><span class="hint"></span></div>
+</form>
+</section>
+<section id="fuelReg">
+<div class="tools">
+<div><h2>Fuel filling register</h2><p class="sub">Latest fillings, newest first.</p></div>
+<div class="row">
+<input id="fq" placeholder="Search vehicle, model, pump, number or employee" aria-label="Search fuel fillings">
+<button class="ghost small" id="frefresh" type="button">Refresh</button>
+</div>
+</div>
+<div class="wrap"><table id="ftbl" aria-busy="true">
+<thead><tr><th>Vehicle</th><th>Date</th><th>Pump</th><th>Coupon / Bill</th><th>Odometer</th><th>Fuel qty</th><th>Amount</th><th>Run / Mileage</th><th>Refilled by</th><th>Remarks</th></tr></thead>
+<tbody id="frows"><tr><td colspan="10" class="loading-cell"><span class="spin"></span>Loading fuel fillings…</td></tr></tbody>
+</table></div>
+<p class="note" id="fnote" aria-live="polite"></p>
+</section>
+<section id="fuelSum">
+<div class="head"><h2>Fuel use by vehicle</h2><p class="sub">All recorded fillings. Average km/L uses full-tank to full-tank runs only.</p></div>
+<div class="wrap"><table id="fsum">
+<thead><tr><th>Vehicle</th><th>Fillings</th><th>Fuel qty</th><th>Amount</th><th>Last odometer</th><th>Last filled</th><th>Avg km/L</th><th>Test-drive use (est.)</th></tr></thead>
+<tbody id="fsumRows"><tr><td colspan="8" class="empty">No fuel fillings yet.</td></tr></tbody>
+</table></div>
+</section>
 </main>
 <script>
-var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx44uRXs2cR96I9_t2gmDsC_RF4lIAB9ybMkCSv8vWcgXAYWY91Q-SQH59yQ6bl3p3ExQ/exec'; // ends with /exec
+var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxTin-yUiikYel4C3iWW5W5339NzE0GaUDdmlQiVbm_6M6tLVFEJ0At2sVbCDQHdC3XiA/exec'; // ends with /exec
 var API_KEY= 'Bommali_Bavana2912'.trim();
 var DEFAULT_KMPL = 20; /* used only if the script does not send a Km/L figure */
+/* Showroom fleet: registration, model, km per litre (km per kg for CNG) and fuel type. Keep in step with VEHICLES in Code.gs (the script's list replaces this on the Fuel filling tab). */
+var FLEET = [
+{ reg: 'AP40NE1240', model: 'Grand i10 NIOS', kmpl: 12, fuelType: 'Petrol' },
+{ reg: 'AP40NC1237', model: 'Exter', kmpl: 12, fuelType: 'Petrol' },
+{ reg: 'AP40NC1235', model: 'Venue', kmpl: 14, fuelType: 'Petrol' },
+{ reg: 'AP40NB1238', model: 'Aura', kmpl: 18, fuelType: 'CNG' },
+{ reg: 'AP40NB1235', model: 'ALCAZAR', kmpl: 20, fuelType: 'Petrol' }
+];
+function vOf(car) { var k = String(car || '').toUpperCase().replace(/[^A-Z0-9]/g, ''), f = null; FLEET.forEach(function (v) { if (v.reg === k) f = v; }); return f; }
+function modelOf(car) { var v = vOf(car); return v ? v.model : ''; }
+function unitOf(car) { var v = vOf(car); return v && v.fuelType === 'CNG' ? 'kg' : 'L'; }
+function carLabel(car) { var v = vOf(car); return v ? car + ' – ' + v.model + ' (' + v.fuelType + ')' : car; }
+function plateM(car) { var v = vOf(car); return '<span class="plate">' + esc(car) + '</span>' + (v ? '<span class="mdl' + (v.fuelType === 'CNG' ? ' cng' : '') + '">' + esc(v.model) + ' · ' + esc(v.fuelType) + '</span>' : ''); }
+function setFleet(list) { if (list && list.length) FLEET = list.map(function (v) { return { reg: v.reg, model: v.model || '', kmpl: v.kmpl, fuelType: v.fuelType || '' }; }); }
+function buildCarSelect() { var s = $('car'); s.innerHTML = '<option value="" disabled selected>Select car registration</option>' + FLEET.map(function (v) { return '<option value="' + v.reg + '">' + esc(carLabel(v.reg)) + '</option>'; }).join(''); }
 var API_TIMEOUT = 30000, LAST_N = 5, loading = false, loaded = false, queued = false, inflight = null;
 var recs = [], $ = function (i) { return document.getElementById(i); }, timer;
+buildCarSelect();
 $('logo').onerror = function () { this.style.display = 'none'; $('mark').style.display = 'inline-flex'; };
 function toProper(s){return String(s||'').trim().replace(/\s+/g,' ').toLowerCase().replace(/(^|[\s.'\-])([a-z])/g,function(m,a,b){return a+b.toUpperCase()})}
 function validName(s){return /^[A-Za-z][A-Za-z .'\-]{1,49}$/.test(s)&&(s.match(/[A-Za-z]/g)||[]).length>=2}
@@ -232,6 +327,39 @@ function normMobile(s){var d=String(s||'').replace(/\D/g,'');if(d.length===12&&d
 function mask(m){m=String(m||'');if(/x/i.test(m))return m;var d=m.replace(/\D/g,'');return d.length<=4?d:'X'.repeat(d.length-4)+d.slice(-4)}
 function esc(s){return String(s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
 function fmt(t){return t?new Date(t).toLocaleString([], {day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'}):'—'}
+var SESSION_KEY = 'sai_swarna_session', session = null;
+function readSession() { try { var s = JSON.parse(localStorage.getItem(SESSION_KEY) || 'null'); if (s && s.token && s.expiresAt > Date.now()) return s; } catch (e) {} return null; }
+function saveSession(s) { try { localStorage.setItem(SESSION_KEY, JSON.stringify(s)); } catch (e) {} }
+function clearSession() { try { localStorage.removeItem(SESSION_KEY); } catch (e) {} }
+function sayPw(text, kind) { var m = $('pmsg'); m.textContent = text || ''; m.className = text ? 'msg show ' + (kind || 'warn') : 'msg'; }
+function sayLogin(text, kind) { var m = $('lmsg'); m.textContent = text || ''; m.className = text ? 'msg show ' + (kind || 'warn') : 'msg'; }
+function lockApp(text, kind) {/* back to the login screen; nothing from the sheet stays on screen */
+session = null; clearSession(); recs = []; loaded = false;
+document.body.classList.add('locked'); document.body.classList.remove('setpw');
+$('np1').value = ''; $('np2').value = ''; sayPw('');
+$('rows').innerHTML = '<tr><td colspan="11" class="loading-cell"><span class="spin"></span>Loading records…</td></tr>';
+$('q').value = ''; $('msg').className = 'msg'; $('note').textContent = '';
+resetForm();
+fuelRecs = []; fuelLoaded = false; $('fq').value = ''; $('fnote').textContent = ''; $('fmsg').className = 'msg';
+$('frows').innerHTML = '<tr><td colspan="10" class="loading-cell"><span class="spin"></span>Loading fuel fillings…</td></tr>';
+$('fsumRows').innerHTML = '<tr><td colspan="8" class="empty">No fuel fillings yet.</td></tr>';
+resetFuelForm(); setTab('td');
+$('lp').value = ''; $('lshow').textContent = 'Show'; $('lp').type = 'password';
+sayLogin(text, kind);
+}
+function enterApp(s) {
+session = s;
+$('lu').value = ''; $('lp').value = ''; sayLogin('');
+document.body.classList.remove('locked');
+$('uName').textContent = s.name || s.username;
+if (s.mustChange) {/* first sign-in: nothing else is available until a new password is saved */
+document.body.classList.add('setpw');
+$('np1').value = ''; $('np2').value = ''; sayPw(''); $('np1').focus();
+return;
+}
+document.body.classList.remove('setpw'); saveSession(s);
+load();
+}
 var pending = 0;
 function pend(d){ pending = Math.max(0, pending + d); $('topbar').classList.toggle('on', pending > 0); }
 function busy(el, text){ el.className = 'hint'; el.innerHTML = '<span class="spin sm"></span>' + esc(text); }
@@ -240,8 +368,10 @@ var msgTimer;
 function say(text, kind){var m=$('msg');clearTimeout(msgTimer);m.textContent=text;m.className='msg show '+kind;if(m.scrollIntoView)m.scrollIntoView({block:'nearest',behavior:'smooth'});if(kind==='ok')msgTimer=setTimeout(function(){m.className='msg'},6000)}
 function api(action, params) {
 if (SCRIPT_URL.indexOf('PASTE_') === 0) return Promise.reject(new Error('Set SCRIPT_URL in index.html first.'));
+if (!session && action !== 'login' && action !== 'ping') { var ae = new Error('Please sign in to continue.'); ae.code = 'AUTH'; return Promise.reject(ae); }
 var p = Object.assign({ key: API_KEY, action: action }, params || {});
-var isRead = action === 'list' || action === 'check' || action === 'lastodo' || action === 'carstatus' || action === 'ping';
+if (session && action !== 'login') p.token = session.token;
+var isRead = action === 'list' || action === 'check' || action === 'lastodo' || action === 'carstatus' || action === 'ping' || action === 'me' || action === 'fuellist';
 var ctl = window.AbortController ? new AbortController() : null;
 var t = setTimeout(function () { if (ctl) ctl.abort(); }, API_TIMEOUT);
 pend(1);
@@ -251,7 +381,11 @@ return fetch(isRead ? SCRIPT_URL + '?' + new URLSearchParams(p) : SCRIPT_URL, op
 .then(function (r) { return r.json(); })
 .then(function (j) {
 clearTimeout(t); pend(-1);
-if (!j.ok) throw new Error(j.error || 'Request failed.');
+if (!j.ok) {
+var er = new Error(j.error || 'Request failed.'); er.code = j.code;
+if (j.code === 'AUTH' && session) lockApp('Your session has ended. Please sign in again.');
+throw er;
+}
 return j;
 }, function (err) {
 clearTimeout(t); pend(-1);
@@ -265,6 +399,7 @@ setLoading(true);
 inflight = api('list')
 .then(function (j) { recs = j.rows; loaded = true; render(); })
 .catch(function (e) {
+if (e.code === 'AUTH') return; /* login screen is already showing */
 var hint = /Not authorised/.test(e.message)
 ? ' The API_KEY in this page does not match the deployed script. In Apps Script use Deploy > Manage deployments > Edit > New version > Deploy.' : '';
 say('Could not load records: ' + e.message + hint, 'warn');
@@ -339,7 +474,7 @@ var t = $('trip'), v = $('odoIn').value.trim();
 if (mode !== 'in' || !openRec || v === '' || !isFinite(Number(v)) || Number(v) < Number(openRec.odoOut)) { t.hidden = true; return; }
 var km = Number(v) - Number(openRec.odoOut);
 t.hidden = false;
-t.innerHTML = 'Distance covered: <b>' + km + ' km</b>. Approx. fuel used: <b>' + fuelCalc(km, tripKmpl) + ' L</b> (at ' + tripKmpl + ' km/L).';
+t.innerHTML = 'Distance covered: <b>' + km + ' km</b>. Approx. fuel used: <b>' + fuelCalc(km, tripKmpl) + ' ' + unitOf(openRec.car) + '</b> (at ' + tripKmpl + ' km/' + unitOf(openRec.car) + ').';
 }
 function setButton(label, ok) { var b = $('go'); b.textContent = label; b.disabled = !ok; }
 function leaveIn() {/* coming from Car-in mode: wipe the locked record details */
@@ -366,11 +501,11 @@ $('odoIn').value = ''; $('rem').value = '';
 var oh = $('oHint'); oh.className = 'hint';
 if (info === null) {
 unlockOdo(); oh.textContent = 'First visit for this car. Enter the starting odometer.';
-showState('s-new', '<span class="plate">' + esc(normReg($('car').value)) + '</span> is in the showroom. No earlier readings, enter the starting odometer.');
+showState('s-new', plateM(normReg($('car').value)) + ' is in the showroom. No earlier readings, enter the starting odometer.');
 } else {
 lockOdo(info.km);
 oh.textContent = 'Auto-filled from last reading: ' + info.km + ' km' + (info.at ? ' on ' + fmt(info.at) : '') + '. Cannot be edited.';
-showState('s-in', '<span class="plate">' + esc(normReg($('car').value)) + '</span> is in the showroom. Last reading ' + info.km + ' km. Record the next test drive out below.');
+showState('s-in', plateM(normReg($('car').value)) + ' is in the showroom. Last reading ' + info.km + ' km. Record the next test drive out below.');
 }
 setButton('Record car out', !verifying);
 }
@@ -388,7 +523,7 @@ var oi = $('odoIn'); oi.min = floor; if (!wasIn) { oi.value = ''; $('rem').value
 var ih = $('iHint'); ih.className = 'hint'; ih.textContent = 'Enter ' + floor + ' km or higher.'; updateTrip();
 $('fTitle').textContent = 'Record car in';
 $('fSub').textContent = 'This car is out on a test drive. Enter the return reading to close it.';
-showState('s-out', '<span class="plate">' + esc(rec.car) + '</span> is out with ' + esc(rec.emp) + ' since ' + fmt(rec.outAt) + '. Complete the return below.');
+showState('s-out', plateM(rec.car) + ' is out with ' + esc(rec.emp) + ' since ' + fmt(rec.outAt) + '. Complete the return below.');
 setButton('Record car in', !verifying);
 }
 function applyStatus(rec, info) { if (rec) applyIn(rec, info); else applyOut(info); }
@@ -474,7 +609,7 @@ btnBusy(btn, 'Saving…');
 api('in', { id: id, odoIn: inV, remarks: $('rem').value.trim() })
 .then(function (j) {
 var km = (j && j.km != null) ? j.km : odoIn - Number(openRec.odoOut), fuel = (j && j.fuel != null) ? j.fuel : fuelCalc(km, tripKmpl);
-say('Car in recorded. ' + km + ' km covered, approx. ' + fuel + ' L fuel used.', 'ok'); resetForm(); return load();
+say('Car in recorded. ' + km + ' km covered, approx. ' + fuel + ' ' + unitOf(openRec.car) + ' fuel used.', 'ok'); resetForm(); return load();
 })
 .catch(function (err) {
 say(err.message, 'warn'); btn.textContent = 'Record car in';
@@ -495,7 +630,7 @@ var activity = function (r) { return Math.max(Date.parse(r.outAt) || 0, Date.par
 var matches = recs.map(function (r, i) { return { r: r, i: i, t: activity(r) }; })
 .sort(function (a, b) { return b.t - a.t || b.i - a.i; })
 .map(function (x) { return x.r; })
-.filter(function (r) { return (r.name + r.mobile + r.car + r.emp).toLowerCase().indexOf(q) > -1; });
+.filter(function (r) { return (r.name + r.mobile + r.car + modelOf(r.car) + r.emp).toLowerCase().indexOf(q) > -1; });
 var list = matches.slice(0, LAST_N);
 $('rows').innerHTML = list.length ? list.map(function (r) {
 var back = r.status === 'Returned';
@@ -504,10 +639,10 @@ var trip = '—';
 if (back && r.odoIn !== null && r.odoIn !== '' && !isNaN(Number(r.odoIn))) {
 var tk = (r.kmDriven !== null && r.kmDriven !== undefined && r.kmDriven !== '') ? Number(r.kmDriven) : Number(r.odoIn) - Number(r.odoOut);
 var tf = (r.fuel !== null && r.fuel !== undefined && r.fuel !== '') ? Number(r.fuel) : fuelCalc(tk, r.kmpl);
-trip = tk + ' km / ' + tf + ' L';
+trip = tk + ' km / ' + tf + ' ' + unitOf(r.car);
 }
 var rem = back ? (esc(r.remarks || '') || '—') : '—';
-return '<tr class="' + (back ? 'is-in' : 'is-out') + '"><td data-label="Customer" class="who">' + esc(r.name) + '</td><td data-label="Mobile">' + esc(mask(r.mobile)) + (r.repeat ? ' <span class="badge b-rep">Repeat</span>' : '') + '</td><td data-label="Car"><span class="plate">' + esc(r.car) + '</span></td><td data-label="Employee">' + esc(r.emp) + '</td><td data-label="Out">' + fmt(r.outAt) + '</td><td data-label="Odo out">' + r.odoOut + ' km</td><td data-label="In">' + fmt(r.inAt) + '</td><td data-label="Odo in">' + odoIn + '</td><td data-label="Km / Fuel">' + trip + '</td><td data-label="Remarks">' + rem + '</td><td data-label="Status"><span class="badge ' + (back ? 'b-in">Returned' : 'b-out">Out') + '</span></td></tr>';
+return '<tr class="' + (back ? 'is-in' : 'is-out') + '"><td data-label="Customer" class="who">' + esc(r.name) + '</td><td data-label="Mobile">' + esc(mask(r.mobile)) + (r.repeat ? ' <span class="badge b-rep">Repeat</span>' : '') + '</td><td data-label="Car">' + plateM(r.car) + '</td><td data-label="Employee">' + esc(r.emp) + '</td><td data-label="Out">' + fmt(r.outAt) + '</td><td data-label="Odo out">' + r.odoOut + ' km</td><td data-label="In">' + fmt(r.inAt) + '</td><td data-label="Odo in">' + odoIn + '</td><td data-label="Km / Fuel">' + trip + '</td><td data-label="Remarks">' + rem + '</td><td data-label="Status"><span class="badge ' + (back ? 'b-in">Returned' : 'b-out">Out') + '</span></td></tr>';
 }).join('') : '<tr><td colspan="11" class="empty">' + (recs.length ? 'No test drives match your search.' : 'No test drives yet. Record the first car out above.') + '</td></tr>';
 var note = '';
 if (matches.length > LAST_N) note = 'Showing the latest ' + LAST_N + ' of ' + matches.length + (q ? ' matching' : '') + ' entries.';
@@ -516,7 +651,7 @@ var hidden = recs.filter(function (r) { return r.status === 'Out' && list.indexO
 if (hidden) note += ' ' + hidden + ' car' + (hidden > 1 ? 's' : '') + ' still out ' + (hidden > 1 ? 'are' : 'is') + ' not shown. Select the car in the form above to mark ' + (hidden > 1 ? 'them' : 'it') + ' in.';
 }
 $('note').textContent = note.trim();
-Array.prototype.forEach.call($('car').options, function (o) { if (!o.value) return; o.textContent = o.value + (openFor(o.value) ? '  (Out)' : ''); });
+Array.prototype.forEach.call($('car').options, function (o) { if (!o.value) return; o.textContent = carLabel(o.value) + (openFor(o.value) ? '  (Out)' : ''); });
 var today = new Date().toDateString();
 $('sOut').textContent = recs.filter(function (r) { return r.status === 'Out'; }).length;
 $('sTot').textContent = recs.filter(function (r) { return new Date(r.outAt).toDateString() === today; }).length;
@@ -526,12 +661,227 @@ $('emps').innerHTML = uniq('emp').map(function (c) { return '<option value="' + 
 }
 $('q').addEventListener('input', render);
 $('refresh').onclick = load;
+$('lshow').addEventListener('click', function () {
+var show = $('lp').type === 'password';
+$('lp').type = show ? 'text' : 'password'; this.textContent = show ? 'Hide' : 'Show'; this.setAttribute('aria-label', show ? 'Hide password' : 'Show password');
+});
+$('lf').addEventListener('submit', function (e) {
+e.preventDefault();
+var u = $('lu').value.trim(), pw = $('lp').value, b = $('lgo');
+if (!u || !pw) { sayLogin('Enter your username and password.'); (u ? $('lp') : $('lu')).focus(); return; }
+sayLogin(''); btnBusy(b, 'Signing in…');
+api('login', { username: u, password: pw })
+.then(function (j) { enterApp({ token: j.token, expiresAt: j.expiresAt, username: j.username, name: j.name, role: j.role, mustChange: !!j.mustChange }); })
+.catch(function (err) { sayLogin(err.message); $('lp').value = ''; $('lp').focus(); })
+.then(function () { b.disabled = false; b.textContent = 'Sign in'; });
+});
+$('pshow').addEventListener('click', function () {
+var show = $('np1').type === 'password';
+$('np1').type = $('np2').type = show ? 'text' : 'password'; this.textContent = show ? 'Hide' : 'Show'; this.setAttribute('aria-label', show ? 'Hide password' : 'Show password');
+});
+$('pf').addEventListener('submit', function (e) {
+e.preventDefault();
+if (!session) return;
+var a = $('np1').value.trim(), c = $('np2').value.trim(), b = $('pgo'), low = a.toLowerCase();
+if (a.length < 6 || a.length > 64) { sayPw('Use a password of 6 to 64 characters.'); $('np1').focus(); return; }
+if (low === String(session.username || '').toLowerCase() || low === String(session.name || '').toLowerCase()) { sayPw('Choose a password different from your username or name.'); $('np1').focus(); return; }
+if (a !== c) { sayPw('The two passwords do not match.'); $('np2').focus(); return; }
+sayPw(''); btnBusy(b, 'Saving…');
+api('changepw', { newPassword: a })
+.then(function (j) {
+enterApp({ token: j.token, expiresAt: j.expiresAt, username: j.username, name: j.name, role: j.role, mustChange: false });
+say('Password saved. You are signed in.', 'ok');
+})
+.catch(function (err) { sayPw(err.message); })
+.then(function () { b.disabled = false; b.textContent = 'Save password and continue'; });
+});
+$('logout').addEventListener('click', function () { lockApp('You have signed out.', 'ok'); $('lu').focus(); });
+/* ===== FUEL FILLING ===== */
+var fuelRecs = [], fuelLoaded = false, fuelLoading = false, fuelQueued = false, fuelInflight = null, LAST_N_FUEL = 10;
+var fuelMeta = { today: '', backdays: 31, maxLitres: 200 }, sayFT;
+function sayF(text, kind) {
+var m = $('fmsg'); clearTimeout(sayFT); m.textContent = text; m.className = 'msg show ' + kind;
+if (m.scrollIntoView) m.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+if (kind === 'ok') sayFT = setTimeout(function () { m.className = 'msg'; }, 6000);
+}
+function fmtD(s) { if (!s) return '—'; var p = String(s).split('-'); return new Date(+p[0], +p[1] - 1, +p[2]).toLocaleDateString([], { day: '2-digit', month: 'short', year: 'numeric' }); }
+function rupee(v) { return '₹' + Number(v).toLocaleString('en-IN', { maximumFractionDigits: 2 }); }
+function r2(v) { return Math.round(v * 100) / 100; }
+function lastFuel(car) {
+var k = normReg(car), best = null;
+fuelRecs.forEach(function (r) { if (normReg(r.car) !== k || r.odo === null) return; if (best === null || r.odo > best.odo) best = r; });
+return best;
+}
+function fuelDup(pump, doc, no) {
+var k = pump.toLowerCase() + '|' + doc + '|' + String(no).toUpperCase(), hit = null;
+fuelRecs.forEach(function (r) { if ((r.pump.toLowerCase() + '|' + r.docType + '|' + String(r.docNo).toUpperCase()) === k) hit = r; });
+return hit;
+}
+function checkFuelDup() {
+var h = $('fnHint'), pump = $('fpump').value.trim().replace(/\s+/g, ' '), doc = $('fdoc').value, no = $('fno').value;
+h.className = 'hint'; h.textContent = '';
+if (!pump || !doc || !no) return;
+var d = fuelDup(pump, doc, no);
+if (d) { h.textContent = 'Already recorded for ' + d.pump + ' (' + d.car + ', ' + fmtD(d.date) + ').'; h.className = 'hint bad'; }
+}
+function fuelCarInfo() {
+var car = $('fcar').value, st = $('fstate'), oh = $('foHint');
+var ql = document.querySelector('label[for="fl"]'); if (ql) ql.innerHTML = (car && unitOf(car) === 'kg' ? 'CNG filled (kg)' : 'Litres filled') + ' <i>*</i>';
+oh.className = 'hint'; oh.textContent = '';
+if (!car) { st.className = 'state'; $('fodo').min = 0; return; }
+var b = lastFuel(car);
+if (!b) {
+st.className = 'state show s-new'; $('fodo').min = 0;
+st.innerHTML = plateM(car) + ' has no fuel filling recorded yet. Enter its current odometer reading.';
+return;
+}
+$('fodo').min = b.odo;
+st.className = 'state show s-in';
+st.innerHTML = plateM(car) + ' last filled on ' + fmtD(b.date) + ' at ' + b.odo + ' km (' + b.litres + ' ' + unitOf(car) + (b.full === 'Yes' ? '' : ', part fill') + '). Odometer must be at least ' + b.odo + ' km.';
+}
+function fillFuelLists(j) {
+var sel = $('fcar'), cur = sel.value, cars = j.cars || [];
+if (j.vehicles) setFleet(j.vehicles);
+sel.innerHTML = '<option value="" disabled selected>Select vehicle</option>' + cars.map(function (c) { return '<option value="' + esc(c) + '">' + esc(carLabel(c)) + '</option>'; }).join('');
+if (cur && cars.indexOf(cur) > -1) sel.value = cur;
+var dsel = $('fdoc'), dcur = dsel.value, docs = j.docs || [];
+dsel.innerHTML = '<option value="" disabled selected>Select ' + docs.join(' or ') + '</option>' + docs.map(function (c) { return '<option value="' + esc(c) + '">' + esc(c) + '</option>'; }).join('');
+if (dcur && docs.indexOf(dcur) > -1) dsel.value = dcur;
+var seen = {}, pumps = [];
+(j.pumps || []).concat(fuelRecs.map(function (r) { return r.pump; })).forEach(function (p) { var k = String(p).toLowerCase(); if (p && !seen[k]) { seen[k] = 1; pumps.push(p); } });
+$('fpumps').innerHTML = pumps.map(function (p) { return '<option value="' + esc(p) + '">'; }).join('');
+var dt = $('fdate');
+if (j.today) {
+var t = j.today.split('-'), lo = new Date(+t[0], +t[1] - 1, +t[2] - (j.backdays || 31));
+dt.max = j.today; dt.min = lo.getFullYear() + '-' + ('0' + (lo.getMonth() + 1)).slice(-2) + '-' + ('0' + lo.getDate()).slice(-2);
+if (!dt.value) dt.value = j.today;
+}
+fuelCarInfo();
+}
+function renderFuel() {
+var q = $('fq').value.toLowerCase();
+var matches = fuelRecs.map(function (r, i) { return { r: r, i: i }; })
+.sort(function (a, b) { return b.r.date.localeCompare(a.r.date) || (b.r.at || '').localeCompare(a.r.at || '') || b.i - a.i; })
+.map(function (x) { return x.r; })
+.filter(function (r) { return (r.car + modelOf(r.car) + r.pump + r.docType + r.docNo + r.emp).toLowerCase().indexOf(q) > -1; });
+var list = matches.slice(0, LAST_N_FUEL);
+$('frows').innerHTML = list.length ? list.map(function (r) {
+var run = r.kmSince === null ? '—' : r.kmSince + ' km / ' + (r.kmpl === null ? '—' : r.kmpl + ' km/' + unitOf(r.car));
+return '<tr><td data-label="Vehicle" class="who">' + plateM(r.car) + '</td><td data-label="Date">' + fmtD(r.date) + '</td><td data-label="Pump">' + esc(r.pump) + '</td><td data-label="Coupon / Bill">' + esc(r.docType) + ' ' + esc(r.docNo) + '</td><td data-label="Odometer">' + r.odo + ' km</td><td data-label="Fuel qty">' + r.litres + ' ' + unitOf(r.car) + (r.full === 'Yes' ? '' : ' <span class="badge b-out">Part</span>') + '</td><td data-label="Amount">' + (r.amount === null ? '—' : rupee(r.amount)) + '</td><td data-label="Run / Mileage">' + run + '</td><td data-label="Refilled by">' + esc(r.emp) + '</td><td data-label="Remarks">' + (esc(r.remarks) || '—') + '</td></tr>';
+}).join('') : '<tr><td colspan="10" class="empty">' + (fuelRecs.length ? 'No fuel fillings match your search.' : 'No fuel fillings yet. Record the first one above.') + '</td></tr>';
+$('fnote').textContent = matches.length > LAST_N_FUEL ? 'Showing the latest ' + LAST_N_FUEL + ' of ' + matches.length + (q ? ' matching' : '') + ' entries.' : '';
+/* per-vehicle summary */
+var by = {}, td = {};
+recs.forEach(function (r) { if (r.status === 'Returned' && r.fuel !== null && r.fuel !== '' && !isNaN(Number(r.fuel))) { var k = normReg(r.car); td[k] = (td[k] || 0) + Number(r.fuel); } });
+fuelRecs.forEach(function (r) {
+var k = normReg(r.car), o = by[k] || (by[k] = { car: k, n: 0, l: 0, a: 0, hasA: false, odo: null, date: '', rl: 0, rk: 0 });
+o.n++; o.l += r.litres || 0;
+if (r.amount !== null) { o.a += r.amount; o.hasA = true; }
+if (r.odo !== null && (o.odo === null || r.odo > o.odo)) o.odo = r.odo;
+if (r.date > o.date) o.date = r.date;
+if (r.kmpl !== null && r.kmSince > 0) { o.rl += r.litres; o.rk += r.kmSince; }
+});
+var keys = Object.keys(by).sort();
+$('fsumRows').innerHTML = keys.length ? keys.map(function (k) {
+var o = by[k];
+return '<tr><td data-label="Vehicle" class="who">' + plateM(o.car) + '</td><td data-label="Fillings">' + o.n + '</td><td data-label="Fuel qty">' + r2(o.l) + ' ' + unitOf(o.car) + '</td><td data-label="Amount">' + (o.hasA ? rupee(o.a) : '—') + '</td><td data-label="Last odometer">' + (o.odo === null ? '—' : o.odo + ' km') + '</td><td data-label="Last filled">' + fmtD(o.date) + '</td><td data-label="Avg km/L">' + (o.rl > 0 ? r2(o.rk / o.rl) : '—') + '</td><td data-label="Test-drive use (est.)">' + (td[k] ? r2(td[k]) + ' ' + unitOf(k) : '—') + '</td></tr>';
+}).join('') : '<tr><td colspan="8" class="empty">No fuel fillings yet.</td></tr>';
+}
+function loadFuel() {
+if (!session) return Promise.resolve();
+if (fuelLoading) { fuelQueued = true; return fuelInflight; }
+fuelLoading = true; $('ftbl').setAttribute('aria-busy', 'true');
+var b = $('frefresh'); b.disabled = true; b.innerHTML = '<span class="spin sm"></span>Refreshing…';
+fuelInflight = api('fuellist')
+.then(function (j) {
+fuelRecs = j.rows || []; fuelLoaded = true;
+fuelMeta = { today: j.today || '', backdays: j.backdays || 31, maxLitres: j.maxLitres || 200 };
+fillFuelLists(j); renderFuel();
+})
+.catch(function (e) {
+if (e.code === 'AUTH') return;
+sayF('Could not load fuel fillings: ' + e.message + (/Unknown action/.test(e.message) ? ' Deploy the new version of the Apps Script.' : ''), 'warn');
+if (!fuelLoaded) $('frows').innerHTML = '<tr><td colspan="10" class="empty">Could not load fuel fillings. Press Refresh to try again.</td></tr>';
+})
+.then(function () {
+fuelLoading = false; $('ftbl').setAttribute('aria-busy', 'false'); b.disabled = false; b.textContent = 'Refresh';
+if (fuelQueued) { fuelQueued = false; return loadFuel(); }
+});
+return fuelInflight;
+}
+function resetFuelForm() {
+$('ff').reset(); $('fcar').selectedIndex = 0; $('fdoc').selectedIndex = 0; $('fdate').value = fuelMeta.today || '';
+['fcHint', 'fdHint', 'fpHint', 'fyHint', 'fnHint', 'foHint', 'flHint', 'feHint'].forEach(function (i) { $(i).textContent = ''; $(i).className = 'hint'; });
+$('fodo').min = 0; $('fstate').className = 'state';
+}
+function setTab(t) {
+var f = t === 'fuel';
+document.body.classList.toggle('tab-fuel', f);
+$('tabTd').setAttribute('aria-selected', f ? 'false' : 'true'); $('tabFuel').setAttribute('aria-selected', f ? 'true' : 'false');
+if (f) loadFuel();
+}
+$('tabTd').onclick = function () { setTab('td'); };
+$('tabFuel').onclick = function () { setTab('fuel'); };
+$('frefresh').onclick = function () { loadFuel(); };
+$('fq').addEventListener('input', renderFuel);
+$('fcar').addEventListener('change', fuelCarInfo);
+['fpump', 'fdoc', 'fno'].forEach(function (i) { $(i).addEventListener('input', checkFuelDup); $(i).addEventListener('change', checkFuelDup); });
+$('fno').addEventListener('input', function () { this.value = this.value.toUpperCase().replace(/[^A-Z0-9\-\/]/g, ''); });
+$('femp').addEventListener('input', function () { this.value = this.value.replace(/[^A-Za-z .'\-]/g, ''); $('feHint').textContent = ''; });
+$('femp').addEventListener('blur', function () {
+this.value = toProper(this.value); var h = $('feHint'); h.className = 'hint';
+if (this.value && !validName(this.value)) { h.textContent = 'Use letters only, at least 2 letters.'; h.className = 'hint bad'; }
+});
+$('fodo').addEventListener('input', function () {
+var h = $('foHint'), b = lastFuel($('fcar').value);
+if (b && this.value !== '' && Number(this.value) < b.odo) { h.textContent = 'Cannot be less than the last fuel filling (' + b.odo + ' km).'; h.className = 'hint bad'; }
+else { h.textContent = ''; h.className = 'hint'; }
+});
+$('ff').addEventListener('submit', function (e) {
+e.preventDefault();
+var btn = $('fgo'), car = $('fcar').value, date = $('fdate').value, doc = $('fdoc').value;
+var pump = $('fpump').value.trim().replace(/\s+/g, ' '), no = $('fno').value.toUpperCase().replace(/\s+/g, '');
+var odoV = $('fodo').value.trim(), lV = $('fl').value.trim(), aV = $('famt').value.trim(), full = $('ffull').value;
+var emp = toProper($('femp').value), rem = $('frem').value.trim().replace(/\s+/g, ' ');
+$('fpump').value = pump; $('fno').value = no; $('femp').value = emp;
+if (!car || !date || !pump || !doc || !no || odoV === '' || lV === '' || !emp) { sayF('Fill in every field marked *.', 'warn'); return; }
+if (fuelMeta.today && date > fuelMeta.today) { sayF('The date of refueling cannot be in the future.', 'warn'); $('fdate').focus(); return; }
+if (!/^[A-Za-z0-9][A-Za-z0-9 .,&'()\/\-]{1,59}$/.test(pump)) { sayF('Enter the pump name (2 to 60 characters, letters and numbers).', 'warn'); $('fpump').focus(); return; }
+if (!/^[A-Z0-9][A-Z0-9\-\/]{0,29}$/.test(no)) { sayF('Enter the ' + doc.toLowerCase() + ' number using letters, numbers, - or / only.', 'warn'); $('fno').focus(); return; }
+if (!validName(emp)) { sayF('Enter the employee name using letters only, for example Suresh Reddy.', 'warn'); $('femp').focus(); return; }
+var odo = Number(odoV);
+if (!isFinite(odo) || odo < 0 || odo !== Math.floor(odo) || odo > 999999) { sayF('Odometer must be a whole number of km between 0 and 999999.', 'warn'); $('fodo').focus(); return; }
+var b0 = lastFuel(car);
+if (b0 && odo < b0.odo) { $('foHint').className = 'hint bad'; sayF('Odometer cannot be less than the last fuel filling for ' + car + ' (' + b0.odo + ' km).', 'warn'); $('fodo').focus(); return; }
+var litres = Number(lV);
+if (!isFinite(litres) || litres <= 0 || litres > fuelMeta.maxLitres) { sayF('Litres must be more than 0 and at most ' + fuelMeta.maxLitres + '.', 'warn'); $('fl').focus(); return; }
+if (aV !== '' && (!isFinite(Number(aV)) || Number(aV) < 0)) { sayF('Enter a valid amount, or leave it blank.', 'warn'); $('famt').focus(); return; }
+var dup = fuelDup(pump, doc, no);
+if (dup) { sayF(doc + ' ' + no + ' is already recorded for ' + dup.pump + ' (' + dup.car + ', ' + fmtD(dup.date) + ').', 'warn'); $('fno').focus(); return; }
+btnBusy(btn, 'Saving…');
+api('fuel', { car: car, pump: pump, docType: doc, docNo: no, date: date, odo: odoV, litres: lV, amount: aV, full: full, emp: emp, remarks: rem })
+.then(function (j) {
+var m = 'Fuel filling recorded.';
+if (j.km != null) m += ' ' + j.km + ' km since the last filling' + (j.kmpl != null ? ', ' + j.kmpl + ' km/L.' : '.');
+sayF(m, 'ok'); resetFuelForm(); return loadFuel();
+})
+.catch(function (err) { sayF(err.message, 'warn'); })
+.then(function () { btn.disabled = false; btn.textContent = 'Record fuel filling'; });
+});
+function boot() {
+var s = readSession();
+if (!s) { lockApp(''); return; }
+session = s; document.body.classList.remove('locked'); $('uName').textContent = s.name || s.username;
+api('me').then(function (j) { $('uName').textContent = j.name || j.username; }).catch(function () {});
 load();
+}
+boot();
 setInterval(function () {
 var a = document.activeElement;
-if (document.hidden) return;
+if (document.hidden || !session) return;
 if (a && a.closest && a.closest('#rows')) return; /* don't disturb someone typing */
 load();
+if (document.body.classList.contains('tab-fuel')) loadFuel();
 }, 60000);
 </script>
 </body>
